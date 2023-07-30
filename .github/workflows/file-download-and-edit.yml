@@ -1,0 +1,28 @@
+name: GitHub Actions Demo
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download file
+        run: |
+          wget https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/main/gfwlist2adguardhome/whitelist_full_combine.txt
+
+      - name: Edit file
+        run: |
+          sed -i 's/https://dns.opendns.com:443/dns-query/https://dns.nextdns.io/b6983a
+/dns/g' file.txt
+
+      - name: Upload file
+        run: |
+          git add file.txt
+          git commit -m "Updated file"
+          git push
