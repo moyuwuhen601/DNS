@@ -18,8 +18,7 @@ jobs:
 
       - name: Edit file
         run: |
-          sed -i 's/https://dns.opendns.com:443/dns-query/https://dns.nextdns.io/b6983a
-/dns/g' file.txt
+          sed -i 's/https://dns.opendns.com:443/dns-query/https://dns.nextdns.io/b6983a/AdGuardHome/g' file.txt
 
       - name: Upload file
         run: |
