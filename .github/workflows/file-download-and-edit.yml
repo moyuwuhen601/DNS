@@ -3,10 +3,10 @@ name: GitHub Actions Demo
 on:
   schedule:
     - cron: '0 3 * * *'
+    runs-on: ubuntu-latest
 
 jobs:
   build:
-    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
