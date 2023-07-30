@@ -2,7 +2,8 @@ name: GitHub Actions Demo
 
 on:
   schedule:
-  - cron: "*/5 * * * *"
+    - cron: "*/5 * * * *"
+  workflow_dispatch: # 添加这一行，表示允许手动触发
 
 jobs:
   build:
@@ -13,9 +14,9 @@ jobs:
       - name: Download file
         run: wget https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/main/gfwlist2adguardhome/whitelist_full_combine.txt
       - name: Edit file
-        run: sed -i 's/https://dns.opendns.com:443/dns-query/https://dns.nextdns.io/b6983a/AdGuardHome/g' file.txt
+        run: sed -i 's/https:\/\/dns.opendns.com:443/https:\/\/dns.nextdns.io\/b6983a\/AdGuardHome/g' whitelist_full_combine.txt # 文件名应改为下载的文件名
       - name: Upload file
         run: |
-          git add file.txt
+          git add whitelist_full_combine.txt # 文件名应改为下载的文件名
           git commit -m "Updated file"
           git push
