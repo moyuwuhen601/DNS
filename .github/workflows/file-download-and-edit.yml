@@ -14,7 +14,7 @@ jobs:
       - name: Set up Git
         run: |
           git config --global user.email "lmj15979853175@gmail.com"
-          git config --global user.name "moyuwuhen601"
+          git config --global user.name "moyuwuhen"
       - name: Download file
         run: wget https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/main/gfwlist2adguardhome/whitelist_full_combine.txt
       - name: Edit file
