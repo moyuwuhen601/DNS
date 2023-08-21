@@ -22,7 +22,6 @@ jobs:
       - name: Edit file
         run: |
           sed -i 's~https://dns.opendns.com:443/dns-query~https://dns.nextdns.io/b6983a/AdGuardHome~' whitelist_full_combine.txt # 文件名应改为下载的文件名
-          sed -i 's~https://doh.pub:443/dns-query~https://doh-ed4d7c5a-DNS.doh.pub/dns-query~' whitelist_full_combine.txt
       - name: Upload file
         run: |
           git add whitelist_full_combine.txt # 文件名应改为下载的文件名
