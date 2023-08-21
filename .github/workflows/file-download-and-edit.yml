@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: GitHub Actions
 
 on:
   schedule:
@@ -20,9 +20,7 @@ jobs:
           wget -O whitelist_full_combine.txt.tmp https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/main/gfwlist2adguardhome/whitelist_full_combine.txt
           mv whitelist_full_combine.txt.tmp whitelist_full_combine.txt
       - name: Edit file
-        run: |
-          sed -i 's~https://dns.opendns.com:443/dns-query~https://dns.nextdns.io/b6983a/AdGuardHome~' whitelist_full_combine.txt # 文件名应改为下载的文件名
-          sed -i 's~https://doh.pub:443/dns-query~https://dns.alidns.com/dns-query~' whitelist_full_combine.txt
+        run: sed -i 's~https://dns.opendns.com:443/dns-query~https://dns.nextdns.io/b6983a/AdGuardHome~' whitelist_full_combine.txt # 文件名应改为下载的文件名
       - name: Upload file
         run: |
           git add whitelist_full_combine.txt # 文件名应改为下载的文件名
