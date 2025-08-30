@@ -17,7 +17,7 @@ jobs:
           git config --global user.name "moyuwuhen601"
       - name: Download file
         run: |
-          wget -O whitelist_full_combine.txt.tmp https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/main/gfwlist2adguardhome/whitelist_full_combine.txt
+          wget -O whitelist_full_combine.txt.tmp https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/refs/heads/main/gfwlist2adguardhome_new/blacklist_full_combine.txt
           mv whitelist_full_combine.txt.tmp whitelist_full_combine.txt
       - name: Edit file
         run: |
