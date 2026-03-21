@@ -21,9 +21,9 @@ jobs:
           mv whitelist_full_combine.txt.tmp whitelist_full_combine.txt
       - name: Edit file
         run: |
-          sed -i 's~https://dns.opendns.com:443/dns-query~https://dns.nextdns.io:443/b6983a/AdGuardHome~' whitelist_full_combine.txt # 文件名应改为下载的文件名
-          sed -i 's~tls://dns.alidns.com:853~tls://dns.pub:853~' whitelist_full_combine.txt
-          sed -i 's~tls://dns.google:853~tls://b6983a.dns.nextdns.io:853~' whitelist_full_combine.txt
+          sed -i 's~https://dns.opendns.com:443/dns-query~https://dns.nextdns.io/b6983a/AdGuardHome~' whitelist_full_combine.txt # 文件名应改为下载的文件名
+          sed -i 's~tls://dns.alidns.com:853~tls://dns.pub~' whitelist_full_combine.txt
+          sed -i 's~tls://dns.google:853~tls://AdGuardHome-b6983a.dns.nextdns.io~' whitelist_full_combine.txt
       - name: Upload file
         run: |
           git add whitelist_full_combine.txt # 文件名应改为下载的文件名
