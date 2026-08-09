@@ -25,6 +25,51 @@ jobs:
           sed -i 's~https://doh.pub:443/dns-query~https://dns.nextdns.io/b6983a/AdGuardHome~' whitelist_full_combine.txt
           sed -i 's~tls://dns.alidns.com:853~tls://dns.alidns.com~' whitelist_full_combine.txt
           sed -i 's~tls://dns.google:853~tls://AdGuardHome-b6983a.dns.nextdns.io~' whitelist_full_combine.txt
+      - name: Sanitize invalid IDNA domains
+        run: |
+          python -m pip install --disable-pip-version-check --quiet 'idna>=3,<4'
+          python <<'PY'
+          from pathlib import Path
+          import idna
+
+          path = Path("whitelist_full_combine.txt")
+          removed = []
+          output = []
+
+          for line_number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(keepends=True), 1):
+              line = raw.rstrip("\r\n")
+              newline = raw[len(line):]
+
+              if line.startswith("[/") and "/]" in line:
+                  domain_part, suffix = line[2:].split("/]", 1)
+                  valid_domains = []
+
+                  for domain in domain_part.split("/"):
+                      if not domain:
+                          continue
+
+                      try:
+                          idna.encode(domain, uts46=True, std3_rules=True)
+                      except idna.IDNAError as exc:
+                          removed.append((line_number, domain, str(exc)))
+                          continue
+
+                      valid_domains.append(domain)
+
+                  line = "[/" + "/".join(valid_domains) + "/]" + suffix
+                  raw = line + newline
+
+              output.append(raw)
+
+          path.write_text("".join(output), encoding="utf-8")
+
+          if removed:
+              print(f"Removed {len(removed)} invalid IDNA domain(s):")
+              for line_number, domain, reason in removed:
+                  print(f"  line {line_number}: {domain} ({reason})")
+          else:
+              print("No invalid IDNA domains found.")
+          PY
       - name: Upload file
         run: |
           git add whitelist_full_combine.txt # 文件名应改为下载的文件名
